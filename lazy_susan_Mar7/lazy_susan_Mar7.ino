@@ -19,7 +19,7 @@ ezButton button(pushButton);
 //2ms
 //500s/s
 //4s rotation
-// initialize the stepper library on pins 2 through 5  
+// initialize the stepper library on pins 2 through 5
 Stepper myStepper(stepsPerRevolution,    5, 3, 2, 4);
 
 
@@ -51,20 +51,19 @@ int buttonState;
 
 void setup() {
 
-  
-  // initialize serial connection. Needs to be higher than 9600 as otherwise some of the numbers are not outputed correctly
-  Serial.begin(115200);
 
-  randomSeed(seed);//analogRead(0));
-
+  // initialize
+  Serial.begin(115200); //serial connection needs to be higher than 9600 as otherwise some of the numbers are not outputed correctly
+  pinMode(ledPin, OUTPUT); //hardware setup
   button.setDebounceTime(50); // set debounce time to 50 milliseconds
 
-  pinMode(ledPin, OUTPUT);
+  randomSeed(seed);//analogRead(0)); //usually randomized
 
-  digitalWrite(ledPin, LOW);
-  
-  
-  
+
+  digitalWrite(ledPin, LOW); //turn off LED
+
+
+
   //create an array of stimuli
   for ( r = 0; r < n_repetitions; r = r + 1)
   {
@@ -101,18 +100,18 @@ void setup() {
   }
   Serial.println(" ");
 
-  
-  
+
+
   delay(500);
 
-  
-  
+
+
   //ask to press and release the button to check that it works, while the led flashes
   button.loop(); // MUST call the loop() function first
   int buttonState = button.getState();
 
+  // wait until the button is pressed
   while (buttonState == 0)
-
   {
     button.loop(); // MUST call the loop() function first
     buttonState = button.getState();
@@ -120,36 +119,34 @@ void setup() {
     delay(100);
     digitalWrite(ledPin, LOW);
     delay(50);
-
   }
 
+  // check that the button is released
   digitalWrite(ledPin, LOW);
   while (buttonState == 1)
-
   {
-    button.loop(); // MUST call the loop() function first
+    button.loop();
     buttonState = button.getState();
 
   }
 
-// flash three times
-     delay(200);
-  for ( i = 0; i < 3; i = i + 1) {
+
+  // flash three times
+  delay(200);
+  for ( i = 0; i < 3; i = i + 1)
+  {
     digitalWrite(ledPin, HIGH);
     delay(500);
     digitalWrite(ledPin, LOW);
     delay(200);
   }
 
-// ready to go
-
+  // ready to go
   delay(1000);
+  currentstepangle = 0;
 
 
-   currentstepangle = 0;
 
-  // button.setCountMode(COUNT_FALLING);
- 
 }
 
 
@@ -162,40 +159,39 @@ void loop() {
     myStepper.setSpeed(800);//trial and error max 1100
 
 
+    /*// this code was meant to find the best direction to turn
+      if (abs(desiredstepangle-currentstepangle)<abs(stepsPerOutRev-(desiredstepangle-currentstepangle)))
+      {
+      Serial.println("clockwise");
+      myStepper.step(desiredstepangle-currentstepangle);
+
+      }else{
+      Serial.println("counter-clockwise");
+       myStepper.step(stepsPerOutRev-(desiredstepangle-currentstepangle));
+      }*/
     desiredstepangle = stepsperdivision * randomized_trials[trialcount];
     myStepper.step(desiredstepangle - currentstepangle);
 
+    // debug printing
     // Serial.print(currentstepangle);
     // Serial.print(desiredstepangle);
     // Serial.println(desiredstepangle - currentstepangle);
 
 
 
-    //indicate how long to touch the sample for
+    //indicate to the participant how long to touch the sample for
     digitalWrite(ledPin, HIGH);
     delay(2000);
     digitalWrite(ledPin, LOW);
-
     delay(2000);
-
-    /*if (abs(desiredstepangle-currentstepangle)<abs(stepsPerOutRev-(desiredstepangle-currentstepangle)))
-       {
-       Serial.println("clockwise");
-       myStepper.step(desiredstepangle-currentstepangle);
-
-       }else{
-       Serial.println("counter-clockwise");
-        myStepper.step(stepsPerOutRev-(desiredstepangle-currentstepangle));
-       }*/
-
 
 
     //start flashing to wait for a button press and release to advance to next trial
     button.loop(); // MUST call the loop() function first
     int buttonState = button.getState();
 
+    // wait until the button is pressed
     while (buttonState == 0)
-
     {
       button.loop(); // MUST call the loop() function first
       buttonState = button.getState();
@@ -206,15 +202,17 @@ void loop() {
     }
     digitalWrite(ledPin, LOW);
 
-    while (buttonState == 1)
 
+    // check that the button is released
+    while (buttonState == 1)
     {
       button.loop(); // MUST call the loop() function first
       buttonState = button.getState();
 
     }
 
-// advance to next trial
+
+    // advance to next trial
     delay(100);
     trialcount = trialcount + 1;
     currentstepangle = desiredstepangle;
