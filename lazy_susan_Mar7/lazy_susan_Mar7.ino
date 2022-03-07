@@ -1,46 +1,30 @@
-
-
-
-int seed = 1;
-
 #include <Stepper.h>
 #include <ezButton.h>
 
-const int stepsPerRevolution = 32;  // change this to fit the number of steps per revolution
-const int gearRed = 64; // for your motor
-const int stepsPerOutRev = stepsPerRevolution * gearRed;
-
+// parameters
+int seed = 1;
 const int n_stimuli = 7;
 const int n_repetitions = 5;
 const int n_trials = n_stimuli * n_repetitions;
 
-
-const int ledPin = 13;      // select the pin for the LED
-
-// digital pin 12 has a pushbutton attached to it
-const int pushButton = 12;
-
-
+// hardware variables
+const int stepsPerRevolution = 32;  // change this to fit the number of steps per revolution
+const int gearRed = 64; // for your motor
+const int stepsPerOutRev = stepsPerRevolution * gearRed;
+const int stepsperdivision = stepsPerOutRev / n_stimuli;
+const int ledPin = 13;      // pin 13 has the internal and the external LED attached to it
+const int pushButton = 12; // digital pin which has a pushbutton attached to it
 ezButton button(pushButton);
-
-
-int buttonState;
-
 //2048
 //2ms
 //500s/s
 //4s rotation
-
-// step sequence needs to be 1, 3, 2, 4
-// initialize the stepper library on pins 8 through 11:  4, 2, 1, 3);
-Stepper myStepper(stepsPerRevolution,    5, 3, 2, 4);//5, 3, 2, 4
+// initialize the stepper library on pins 2 through 5  
+Stepper myStepper(stepsPerRevolution,    5, 3, 2, 4);
 
 
-int stepsRequired;
-
-
+// randomization variables
 long randNumber;
-
 int f;
 int i;
 int n;
@@ -48,21 +32,27 @@ int chosen_element;
 int chosen_position;
 int r;
 int x;
+int count = 0;
 
+
+// trials variables
 int randomized_trials[n_stimuli * n_repetitions];
 int ordered_array[n_stimuli + 1];
 
+// control of the trial variables
 int currentstepangle;
+int desiredstepangle;
+int trialcount = -1;
+int buttonState;
 
-const int stepsperdivision = stepsPerOutRev / n_stimuli;
 
-int count = 0;
+
+
 
 void setup() {
 
-  // pinMode(button, INPUT_PULLUP);
-
-  // initialize
+  
+  // initialize serial connection. Needs to be higher than 9600 as otherwise some of the numbers are not outputed correctly
   Serial.begin(115200);
 
   randomSeed(seed);//analogRead(0));
@@ -72,6 +62,9 @@ void setup() {
   pinMode(ledPin, OUTPUT);
 
   digitalWrite(ledPin, LOW);
+  
+  
+  
   //create an array of stimuli
   for ( r = 0; r < n_repetitions; r = r + 1)
   {
@@ -108,12 +101,13 @@ void setup() {
   }
   Serial.println(" ");
 
-  currentstepangle = 0;
+  
+  
   delay(500);
 
-
-  //check that the button is not pressed; if it is, wait for it to be de-pressed and flash
-
+  
+  
+  //ask to press and release the button to check that it works, while the led flashes
   button.loop(); // MUST call the loop() function first
   int buttonState = button.getState();
 
@@ -138,7 +132,8 @@ void setup() {
 
   }
 
-
+// flash three times
+     delay(200);
   for ( i = 0; i < 3; i = i + 1) {
     digitalWrite(ledPin, HIGH);
     delay(500);
@@ -146,37 +141,37 @@ void setup() {
     delay(200);
   }
 
+// ready to go
 
   delay(1000);
 
-  button.setCountMode(COUNT_FALLING);
 
+   currentstepangle = 0;
+
+  // button.setCountMode(COUNT_FALLING);
+ 
 }
 
-int desiredstepangle;
-int previous_sample = 0;
-int current_sample = 0;
-int trialcount = -1;
+
 
 
 void loop() {
 
 
   if (trialcount < n_trials) {
-    myStepper.setSpeed(800);//empty max 1100
+    myStepper.setSpeed(800);//trial and error max 1100
 
 
     desiredstepangle = stepsperdivision * randomized_trials[trialcount];
+    myStepper.step(desiredstepangle - currentstepangle);
 
     // Serial.print(currentstepangle);
     // Serial.print(desiredstepangle);
-    //  Serial.println(desiredstepangle - currentstepangle);
-
-    myStepper.step(desiredstepangle - currentstepangle);
+    // Serial.println(desiredstepangle - currentstepangle);
 
 
 
-    //indicate the touch time
+    //indicate how long to touch the sample for
     digitalWrite(ledPin, HIGH);
     delay(2000);
     digitalWrite(ledPin, LOW);
@@ -193,14 +188,9 @@ void loop() {
         myStepper.step(stepsPerOutRev-(desiredstepangle-currentstepangle));
        }*/
 
-    // turn on led
 
 
-    //start flashing to wait press and release button to go to next trial
-    //   buttonState = digitalRead(pushButton);
-    //  while (buttonState == 0)
-    button.loop(); // MUST call the loop() function first
-
+    //start flashing to wait for a button press and release to advance to next trial
     button.loop(); // MUST call the loop() function first
     int buttonState = button.getState();
 
@@ -223,12 +213,8 @@ void loop() {
       buttonState = button.getState();
 
     }
-    /*  delay(500);
-        while (buttonState == 0)
-          buttonState = digitalRead(pushButton);
-        delay(100);
-    */
 
+// advance to next trial
     delay(100);
     trialcount = trialcount + 1;
     currentstepangle = desiredstepangle;
@@ -236,12 +222,6 @@ void loop() {
   }
 
 
-  //
-  // Serial.println(buttonState);
-  //  // step one revolution in the other direction:
-  //  Serial.println("counterclockwise");
-  //  myStepper.step(-stepsRequired);
-  //  delay(500);
 
 
 
