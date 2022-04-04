@@ -1,5 +1,5 @@
 
-*Arduino-based Lazy Susan
+# Arduino-based Lazy Susan
 
 
 <p align="left">
