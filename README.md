@@ -1,6 +1,7 @@
 
 # Arduino-based Lazy Susan
 
+<p>This project has been developed by <a href="https://massimilianodiluca.info/">Max Di Luca</a>.</p>
 
 <p align="left">
 
@@ -10,11 +11,13 @@
  Here we devised a setup that can be mailed to participant’s homes with instructions on how to run the experiment and collect the data. 
  
  The device is built by combining an inexpensive lazy Susan with a microcontroller (Atmega168). Precisely manufactured 3D printed surfaces are mounted on the motorized lazy Susan and the microcontroller allows rapid selection of the appropriate sample. 
- 
+ </p>
+ <p align="left">
  <br>
  The code to control the experiment is included in this repository.
  
- 
+  </p>
+ <p align="centre">
  
  
  <img width="200" height="200" src="IMG_2246.jpeg">
@@ -22,10 +25,13 @@
 
 
   <img width="200" height="200" src="IMG_0763.jpeg">
+  </p>
+ <p align="centre">
    <br> <img width="300" height="200" src="IMG_0819.jpeg">
     <img width="300" height="200" src="IMG_0824.jpeg">
     <img width="300" height="200" src="IMG_0825.jpeg">
- 
+   </p>
+ <p align="centre">
   <br>
   
  <video controls="controls" width="420" height="315" name="Video Name">
@@ -38,4 +44,4 @@
   width="420" height="315"></object>
  
 </p>
-<p>This project has been developed by <a href="https://massimilianodiluca.info/">Max Di Luca</a>.</p>
+
