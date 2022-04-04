@@ -1,7 +1,6 @@
 
- <head>
-<title>Arduino-based Lazy Susan</title> 
-</head>
+#Arduino-based Lazy Susan
+
 
 <p align="left">
 Arduino code to control a Lazy Susan for a tactile experiment
