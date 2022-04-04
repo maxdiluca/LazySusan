@@ -16,7 +16,7 @@ Arduino code to control a Lazy Susan for a tactile experiment
  
   <br>
   
- <video controls="controls" width="800" height="600" name="Video Name">
+ <video controls="controls" width="420" height="315" name="Video Name">
   <source src="./IMG_0762.MOV">
 </video>
  
