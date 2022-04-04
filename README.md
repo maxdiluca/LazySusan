@@ -1,4 +1,4 @@
-# ArduinoLazySusan
+# Arduino-based Lazy Susan
 
 Arduino code to control a Lazy Susan for a tactile experiment
  <br>
