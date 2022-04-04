@@ -5,6 +5,15 @@
 <p align="left">
 Arduino code to control a Lazy Susan for a tactile experiment
  <br>
+ Roughness judgments are acquired through direct contact with a surface and exploration. 
+ Due to social distancing requirements, in person experiments to study roughness perception are not possible.
+ 
+ Here we devised a setup that can be mailed to participant’s homes with instructions on how to run the experiment and collect the data. 
+ 
+ The device is built by combining an inexpensive lazy Susan with a microcontroller (Atmega168). Precisely manufactured 3D printed surfaces are mounted on the motorized lazy Susan and the microcontroller allows rapid selection of the appropriate sample. The code to control the experiment is included in this repository.
+ 
+ 
+ 
  
  <img width="200" height="200" src="IMG_2246.jpeg">
   
@@ -27,4 +36,4 @@ Arduino code to control a Lazy Susan for a tactile experiment
   width="420" height="315"></object>
  
 </p>
-
+<p>This project has been developed by <a href="https://massimilianodiluca.info/">Max Di Luca</a>.</p>
