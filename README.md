@@ -1,7 +1,7 @@
 
 # Arduino-based Lazy Susan
 
-<p>This project has been developed by <a href="https://massimilianodiluca.info/">Max Di Luca</a>.</p>
+<p>This project has been funded by the Experimental Psychology Society and has been developed by <a href="https://massimilianodiluca.info/">Max Di Luca</a>.</p>
 
 <p align="left">
 
