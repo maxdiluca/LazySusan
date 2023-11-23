@@ -5,12 +5,11 @@
 
 <p align="left">
 
- Roughness judgments are acquired through direct contact with a surface and exploration. 
- Due to social distancing requirements, in person experiments to study roughness perception are not possible.
- 
- Here we devised a setup that can be mailed to participant’s homes with instructions on how to run the experiment and collect the data. 
+ Judgments about material properties (e.g., roughness, softness, temperature extraction) are acquired through direct contact between skin with a surface and through exploration. Presenting materials to participant can be an exhausting task for the experimenter, and mechanical automation is a desired methodology. Moreover, due to social distancing requirements, in-person experiments to study how the perception of these properties is achieved, might not be possible. To overcome these limitations, here we devised a setup that can be either used to present objects to participants, it could be mailed to participants’ homes with instructions on how to run the experiment and collect the data, or that can be employed in conjunction with a VR headset to create visual-haptic discrepancies between material properties.
  
  The device is built by combining an inexpensive lazy Susan with a microcontroller (Atmega168). Precisely manufactured 3D printed surfaces are mounted on the motorized lazy Susan and the microcontroller allows rapid selection of the appropriate sample. 
+
+ 
  </p>
  <p align="left">
  <br>
